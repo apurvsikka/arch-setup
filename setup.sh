@@ -32,7 +32,7 @@ echo "Installing packages..."
 read -p "install browser package(chromium and brave)? [y/n]"
 if [ $REPLY = "y" ]; then
     sudo pacman -S chromium --noconfirm --needed
-    sudo pacman -S brave --noconfirm --needed
+    sudo pacman -S brave-bin --noconfirm --needed
 else
     echo "Skipping browser installation"
 fi
