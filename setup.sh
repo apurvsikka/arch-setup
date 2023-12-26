@@ -25,7 +25,7 @@ elif [ $REPLY = "pamac" ]; then
 
 else
     echo "option not found"
-
+fi
 
 echo "Installing packages..."
 #install browsers
