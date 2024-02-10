@@ -1,212 +1,242 @@
 #arch-setup.sh
 # Description: This script will install all the necessary packages for my arch linux build    
 # asking the user to choose a AUR helper
-read -p "which AUR helper do you use? [yay/paru/pamac]"
-if [ $REPLY = "yay" ]; then
-    #installing yay
-    sudo pacman -S --needed base-devel git
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-    echo "yay installed successfully"
+# Installing yay
+echo "Installing yay..."
+pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
-elif [ $REPLY = "paru" ]; then
-    #installing paru
-    sudo pacman -S --needed base-devel git
-    git clone https://aur.archlinux.org/paru.git
-    cd paru
-    makepkg -si
-    echo "paru installed successfully"
-
-elif [ $REPLY = "pamac" ]; then 
-    #installing pamac
-    sudo pacman -S pamac-all
-    echo "pamac installed successfully"
-
-else
-    echo "option not found"
-fi
-
+# Installing packages
 echo "Installing packages..."
-#install browsers
-read -p "install browser package(chromium and brave)? [y/n]"
-if [ $REPLY = "y" ]; then
-    sudo pacman -S chromium --noconfirm --needed
-    sudo pacman -S brave-bin --noconfirm --needed
-else
-    echo "Skipping browser installation"
-fi
-#install terminal
-read -p "install terminal package(alacritty)? [y/n]"
-if [ $REPLY = "y" ]; then
-    sudo pacman -S alacritty --noconfirm --needed
-else
-    echo "Skipping terminal installation"
-fi
-#install telegram
-read -p "install telegram? [y/n]"
-if [ $REPLY = "y" ]; then
-    sudo pacman -S telegram-desktop --noconfirm --needed
-else
-    echo "Skipping telegram installation"
-fi
-#install vs code
-read -p "install vs code? [y/n]"
-if [ $REPLY = "y" ]; then
-    sudo pacman -S visual-studio-code-bin --noconfirm --needed
-else
-    echo "Skipping vs code installation"
-fi
-#install git
-# installing git
-echo "Installing git..."
-sudo pacman -S git --noconfirm --neededdo 
-sudo pacman -S curl --noconfirm --needed
-#installing zsh
-echo "Installing zsh..."
-sudo pacman -S zsh --noconfirm --needed
+# installing utility tools
+echo "installing utility tools"
+yay  -S --noconfirm --needed alacritty
+yay  -S --noconfirm --needed neovim
+yay  -S --noconfirm --needed zsh
+yay -S --noconfirm --needed zsh-syntax-highlighting
+# spectacle
+yay -S --noconfirm --needed spectacle
+# installing fonts
+echo "installing fonts"
+yay -S --noconfirm --needed ttf-fira-code
+yay -S --noconfirm --needed ttf-roboto
+yay -S --noconfirm --needed ttf-roboto-mono
+yay -S --noconfirm --needed ttf-nerd-fonts-symbols
+# noto fonts
+yay -S --noconfirm --needed noto-fonts
+yay -S --noconfirm --needed noto-fonts-emoji
+yay -S --noconfirm --needed noto-fonts-cjk
+# installing development tools
+echo "installing development tools"
+yay -S --noconfirm --needed nodejs
+yay -S --noconfirm --needed npm
+yay -S --noconfirm --needed python 
+yay -S --noconfirm --needed python-pip
+yay -S --noconfirm --needed go
+yay -S --noconfirm --needed rust
 
-#installing oh-my-zsh
-echo "Installing oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#asking user about the window manager
-read -p "which window manager/desktop environmet do you use? [y/n]"
-if [ $REPLY = "gnome" ]; then
-    # install themes for gnome
-    echo "Installing themes for gnome..."
-    sudo pacman -S gnome-themes-extra --noconfirm --needed
-    sudo pacman -S arc-gtk-theme --noconfirm --needed
-    sudo pacman -S arc-icon-theme --noconfirm --needed
-    sudo pacman -S papirus-icon-theme --noconfirm --needed
-    sudo pacman -S adapta-gtk-theme --noconfirm --needed
-elif [ $REPLY = "kde" ]; then
-    # install themes for kde
-    echo "Installing themes for kde..."
-    sudo pacman -S arc-kde --noconfirm --needed
-    sudo pacman -S papirus-icon-theme --noconfirm --needed
-    sudo pacman -S adapta-kde --noconfirm --needed
-elif [ $REPLY = "i3" ]; then
-    # install themes for i3
-    echo "Installing themes for i3..."
-    sudo pacman -S arc-gtk-theme --noconfirm --needed
-    sudo pacman -S arc-icon-theme --noconfirm --needed
-    sudo pacman -S papirus-icon-theme --noconfirm --needed
-    sudo pacman -S adapta-gtk-theme --noconfirm --needed
-elif [ $REPLY = "xfce" ]; then
-    # install themes for xfce
-    echo "Installing themes for xfce..."
-    sudo pacman -S arc-gtk-theme --noconfirm --needed
-    sudo pacman -S arc-icon-theme --noconfirm --needed
-    sudo pacman -S papirus-icon-theme --noconfirm --needed
-    sudo pacman -S adapta-gtk-theme --noconfirm --needed
-else
-    echo "option not found"
-fi
-#installing neofetch
-sudo pacman -S neofetch --noconfirm --needed
-#installing vim
-sudo pacman -S vim --noconfirm --needed
-#installing ranger
-sudo pacman -S ranger --noconfirm --needed
-#installing htop
-sudo pacman -S htop --noconfirm --needed
-#instaling discord
-sudo pacman -S discord --noconfirm --needed
-#installing spotify
-sudo pacman -S spotify --noconfirm --needed
-#asking the user for gaming packages
-read -p "install gaming packages? [y/n]"
-if [ $REPLY = "y" ]; then
-    #installing steam
-    sudo pacman -S steam --noconfirm --needed
-    #installing lutris
-    sudo pacman -S lutris --noconfirm --needed
-    #installing wine
-    sudo pacman -S wine --noconfirm --needed
-    #installing wine tricks
-    sudo pacman -S winetricks --noconfirm --needed
-    #installing dxvk
-    sudo pacman -S dxvk-bin --noconfirm --needed
-    #installing gamemode
-    sudo pacman -S gamemode --noconfirm --needed
-    #installing mangohud
-    sudo pacman -S mangohud --noconfirm --needed
-    #installing lib32-mangohud
-    sudo pacman -S lib32-mangohud --noconfirm --needed
-    #installing lib32-gamemode
-    sudo pacman -S lib32-gamemode --noconfirm --needed
-    #installing lib32-vulkan-icd-loader
-    sudo pacman -S lib32-vulkan-icd-loader --noconfirm --needed
-    #installing lib32-vulkan-intel
-    sudo pacman -S lib32-vulkan-intel --noconfirm --needed
+# installing apps
+echo "installing apps"
+# asking user to choose a browser
+echo "Choose a browser to install:"
+echo "1) Firefox"
+echo "2) Brave"
+echo "3) Google Chrome"
+echo "4) Microsoft Edge"
+echo "5) Opera"
+echo "6) Vivaldi"
+echo "7) qutebrowser"
+echo "8) Tor Browser"
+echo "9) Falkon"
+echo "10) Midori"
+echo "11) Epiphany"
+echo "12) chromium"
+echo "13) luakit"
+# read the user input
+read browser
+# checking input and installing browser
+case $browser in
+    1) yay -S --noconfirm --needed firefox ;;
+    2) yay -S --noconfirm --needed brave ;;
+    3) yay -S --noconfirm --needed google-chrome ;;
+    4) yay -S --noconfirm --needed microsoft-edge-dev-bin ;;
+    5) yay -S --noconfirm --needed opera ;;
+    6) yay -S --noconfirm --needed vivaldi ;;
+    7) yay -S --noconfirm --needed qutebrowser ;;
+    8) yay -S --noconfirm --needed tor-browser ;;
+    9) yay -S --noconfirm --needed falkon ;;
+    10) yay -S --noconfirm --needed midori ;;
+    11) yay -S --noconfirm --needed epiphany ;;
+    12) yay -S --noconfirm --needed chromium ;;
+    13) yay -S --noconfirm --needed luakit ;;
+    *) echo "Invalid option" ;;
+esac
 
-    #installing lib32-vulkan-radeon
-    sudo pacman -S lib32-vulkan-radeon --noconfirm --needed
-    #installing lib32-vulkan-mesa-layers
-    sudo pacman -S lib32-vulkan-mesa-layers --noconfirm --needed
-    #installing lib32-vulkan-mesa-git
-    sudo pacman -S lib32-vulkan-mesa-git --noconfirm --needed
-    #installing lib32-vulkan-icd-loader-git
-    sudo pacman -S lib32-vulkan-icd-loader-git --noconfirm --needed
-    #installing lib32-vulkan-intel-git
-    sudo pacman -S lib32-vulkan-intel-git --noconfirm --needed
-    #installing lib32-vulkan-radeon-git
-    sudo pacman -S lib32-vulkan-radeon-git --noconfirm --needed
-    #installing lib32-vulkan-mesa-layers-git
-    sudo pacman -S lib32-vulkan-mesa-layers-git --noconfirm --needed
-    #installing lib32-vulkan-headers
-    sudo pacman -S lib32-vulkan-headers --noconfirm --needed
+# asking user to choose a terminal emulator
+echo "Choose a terminal emulator to install:"
+echo "1) alacritty"
+echo "2) gnome-terminal"
+echo "3) konsole"
+echo "4) terminator"
+echo "5) xfce4-terminal"
+echo "6) urxvt"
+echo "7) st"
+echo "8) kitty"
+echo "9) tilda"
+echo "10) guake"
+echo "11) sakura"
+echo "12) lxterminal"
+echo "13) cool-retro-term"
 
-else
-    echo "Skipping gaming packages installation"
+# read the user input
+read terminal
+# checking input and installing terminal
+case $terminal in
+    1) yay -S --noconfirm --needed alacritty ;;
+    2) yay -S --noconfirm --needed gnome-terminal ;;
+    3) yay -S --noconfirm --needed konsole ;;
+    4) yay -S --noconfirm --needed terminator ;;
+    5) yay -S --noconfirm --needed xfce4-terminal ;;
+    6) yay -S --noconfirm --needed rxvt-unicode ;;
+    7) yay -S --noconfirm --needed st ;;
+    8) yay -S --noconfirm --needed kitty ;;
+    9) yay -S --noconfirm --needed tilda ;;
+    10) yay -S --noconfirm --needed guake ;;
+    11) yay -S --noconfirm --needed sakura ;;
+    12) yay -S --noconfirm --needed lxterminal ;;
+    13) yay -S --noconfirm --needed cool-retro-term ;;
+    *) echo "Invalid option" ;;
+esac
+
+# asking user to installing development apps
+echo "Choose a development app to install:"
+echo "1) Visual Studio Code"
+echo "2) Atom"
+echo "3) Sublime Text"
+echo "4) IntelliJ IDEA"
+echo "5) PyCharm"
+echo "6) WebStorm"
+echo "7) CLion"
+echo "8) GoLand"
+echo "9) Rider"
+echo "10) DataGrip"
+
+# read the user input
+read devapp
+# checking input and installing development app
+case $devapp in
+    1) yay -S --noconfirm --needed visual-studio-code-bin ;;
+    2) yay -S --noconfirm --needed atom ;;
+    3) yay -S --noconfirm --needed sublime-text ;;
+    4) yay -S --noconfirm --needed intellij-idea-ultimate-edition ;;
+    5) yay -S --noconfirm --needed pycharm-professional ;;
+    6) yay -S --noconfirm --needed webstorm ;;
+    7) yay -S --noconfirm --needed clion ;;
+    8) yay -S --noconfirm --needed goland ;;
+    9) yay -S --noconfirm --needed rider ;;
+    10) yay -S --noconfirm --needed datagrip ;;
+    *) echo "Invalid option" ;;
+esac
+
+# installing spotify,discord,signal,telegram
+echo "installing spotify,discord,signal and telegram"
+yay -S --noconfirm --needed spotify
+yay -S --noconfirm --needed discord
+yay -S --noconfirm --needed signal-desktop
+yay -S --noconfirm --needed telegram-desktop
+
+# installing multimedia apps
+echo "installing multimedia apps"
+yay -S --noconfirm --needed vlc
+yay -S --noconfirm --needed kdenlive
+# asking user for any other multimedia app
+echo "Do you want to install any other multimedia app? [y/N]"
+read multimedia
+if [[ $multimedia == "y" || $multimedia == "Y" ]]; then
+    echo "choose the name of the multimedia app to install:"
+    echo "1) audacity"
+    echo "2) obs-studio"
+    echo "3) shotcut"
+    echo "4) handbrake"
+    echo "5) simplescreenrecorder"
+    echo "6) flowblade"
+    echo "7) openshot"
+    echo "8) pitivi"
+    echo "9) cinelerra"
+    echo "10) lightworks"
+    echo "11) davinci-resolve"
+    echo "12) olive"
+    echo "13) natron"
+    read multimediaapp
+    case $multimediaapp in
+        1) yay -S --noconfirm --needed audacity ;;
+        2) yay -S --noconfirm --needed obs-studio ;;
+        3) yay -S --noconfirm --needed shotcut ;;
+        4) yay -S --noconfirm --needed handbrake ;;
+        5) yay -S --noconfirm --needed simplescreenrecorder ;;
+        6) yay -S --noconfirm --needed flowblade ;;
+        7) yay -S --noconfirm --needed openshot ;;
+        8) yay -S --noconfirm --needed pitivi ;;
+        9) yay -S --noconfirm --needed cinelerra ;;
+        10) yay -S --noconfirm --needed lightworks ;;
+        11) yay -S --noconfirm --needed davinci-resolve ;;
+        12) yay -S --noconfirm --needed olive ;;
+        13) yay -S --noconfirm --needed natron ;;
+        *) echo "Invalid option" ;;
+       esac
 fi
 
-   # ask to install wine
-read -p "install wine? [y/n]"
- if [ $REPLY = "y" ]; then
-      #installing wine
-      sudo pacman -S wine --noconfirm --needed
-      #installing wine tricks
-      sudo pacman -S winetricks --noconfirm --needed
-      #installing dxvk
-      sudo pacman -S dxvk-bin --noconfirm --needed
-      #installing gamemode
-      sudo pacman -S gamemode --noconfirm --needed
-      #installing mangohud
-      sudo pacman -S mangohud --noconfirm --needed
-      #installing lib32-mangohud
-      sudo pacman -S lib32-mangohud --noconfirm --needed
-      #installing lib32-gamemode
-      sudo pacman -S lib32-gamemode --noconfirm --needed
-      #installing lib32-vulkan-icd-loader
-      sudo pacman -S lib32-vulkan-icd-loader --noconfirm --needed
-      #installing lib32-vulkan-intel
-      sudo pacman -S lib32-vulkan-intel --noconfirm --needed
-      #installing lib32-vulkan-radeon
-      sudo pacman -S lib32-vulkan-radeon --noconfirm --needed
-      #installing lib32-vulkan-mesa-layers
-      sudo pacman -S lib32-vulkan-mesa-layers --noconfirm --needed
-      #installing lib32-vulkan-mesa-git
-      sudo pacman -S lib32-vulkan-mesa-git --noconfirm --needed
-      #installing lib32-vulkan-icd-loader-git
-      sudo pacman -S lib32-vulkan-icd-loader-git --noconfirm --needed
-      #installing lib32-vulkan-intel-git
-      sudo pacman -S lib32-vulkan-intel-git --noconfirm --needed
-      #installing lib32-vulkan-radeon-git
-      sudo pacman -S lib32-vulkan-radeon-git --noconfirm --needed
-      #installing lib32-vulkan-mesa-layers-git
-      sudo pacman -S lib32-vulkan-mesa-layers-git --noconfirm --needed
-      #installing lib32-vulkan-headers
-      sudo pacman -S lib32-vulkan-headers --noconfirm --needed
-else
-      echo "Skipping wine installation"
+# text editors
+echo "installing text editors"
+yay -S --noconfirm --needed gedit
+yay -S --noconfirm --needed kate
+yay -S --noconfirm --needed mousepad
+yay -S --noconfirm --needed leafpad
+
+# installing office apps
+echo "installing office apps"
+yay -S --noconfirm --needed onlyoffice-desktopeditors
+
+# asking to install gaming apps
+echo "Do you want to install gaming apps? [y/N]"
+read gaming
+if $gaming == "y" || $gaming == "Y"|| $gaming == "yes" || $gaming == "ya"; then
+    echo "choose the name of the gaming app to install:"
+    echo "1) steam"
+    echo "2) lutris"
+    echo "3) epic-games-store"
+    echo "4) gog-galaxy"
+    echo "5) itch"
+    echo "6) playonlinux"
+    echo "7) wine"
+
+    case $gamingapp in
+        1) yay -S --noconfirm --needed steam ;;
+        2) yay -S --noconfirm --needed lutris ;;
+        3) yay -S --noconfirm --needed epic-games-store ;;
+        4) yay -S --noconfirm --needed gog-galaxy ;;
+        5) yay -S --noconfirm --needed itch ;;
+        6) yay -S --noconfirm --needed playonlinux ;;
+        7) yay -S --noconfirm --needed wine ;;
+        *) echo "Invalid option" ;;
+    esac
 fi
-  #installing lutris
-  sudo pacman -S lutris --noconfirm --needed
+# programming software
+echo "do you want to install programming software"
+read programming
+if $programming == "y" || $programming == "Y"|| $programming == "yes" || $programming == "ya"; then
+    yay -S --noconfirm --needed visual-studio-code
+    yay -S --noconfirm --needed codeblocks
+    yay -S --noconfirm --needed gitkraken
+fi
+# installing spicetify 
+echo "installing spicetify"
+curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh
+spicetify backup apply enable-devtool
+curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh
 
 # cleaning up
 echo "Cleaning up..."
-sudo pacman -Scc --noconfirm
-sudo pacman -Rns $(pacman -Qtdq) --noconfirm
-sudo pacman -Syyu --noconfirm
-echo "Done!"
+yay -Scc --noconfirm
+yay -Rns $(pacman -Qtdq) --noconfirm
+yay -Syyu --noconfirm
+echo "Done! you are all set!"
